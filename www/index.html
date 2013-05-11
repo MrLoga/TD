@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TD game "Google Server Defense"</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/init.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+  </head>
+  <body>
+    <h1>TD game 'GS Defense'</h1>
+
+
+    <section id="GS_Wrap">
+      <img id="GS_Loader" class="loader__show" src="img/loading2.gif">
+
+    </section>
+    <!-- Script -->
+    <script src="js/field.js"></script>
+    <script>
+
+      $(document).ready(function(){
+        $('#GS_Wrap').GS_Wrap({f: 1});
+        $('#GS_Wrap').GS_Wrap('show', {s: 2});
+        $('#GS_Wrap').GS_Field('field', {field: 3});
+      });
+    
+    </script>
+    
+  </body>
+</html>

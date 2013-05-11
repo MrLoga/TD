@@ -1,0 +1,29 @@
+#GS_Wrap {
+  position: relative;
+  width: 500px;
+  height: 400px;
+  border: 3px solid #9E1F16;
+  z-index: 1000;
+  background: #fff;
+}
+
+
+#GS_Loader {
+  -webkit-transition: opacity 2s;
+  -moz-transition: opacity 2s;
+  -o-transition: opacity 2s;
+  -ms-transition: opacity 2s;       
+  transition: opacity 2s;
+  position: absolute;
+
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -150px;
+  z-index: 9999;
+}
+#GS_Loader.loader__show {
+  opacity: .9;
+  display: block;
+}
