@@ -1,30 +1,19 @@
 (function($){
 
     // variable block
-    var x = '2';
-    var $this = $('#GS_Wrap');
+    var $main = $('#GS_Wrap');
     var $loader = $('#GS_Loader');
 
 
 
     var methods = {
       init : function(options){
-
-        setTimeout(function(){$('#GS_Loader').removeClass('loader__show')}, 2000);
-        console.log($($loader));
-        $this.GS_Field({field: 2});
-        $this.GS_Field('field', {field: 2});
-      },
-      show : function(options){
-        console.log('show');
-        console.log(arguments);
-        // this.GS_Wrap('init', {f: 1});
-      },
-      hide : function(){
-        console.log('hide');
-        console.log(arguments);
-      },
-      update : function(content){}
+        $main.GS_Field({
+          size: [10,8]
+        });
+        setTimeout(function(){$('#GS_Loader').removeClass('loader__show')}, 500);
+        setTimeout(function(){$('#GS_Loader').hide()}, 1500);
+      }
     };
     
 
