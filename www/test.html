@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TD game "Google Server Defense"</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css2/index.css">
+  </head>
+  <body>
+    <canvas id="viewport" height="768" width="1024"></canvas>
+    <script type="text/javascript" charset="utf-8">
+      var example = document.getElementById("viewport");
+      var ctx = example.getContext('2d');  // Контекст холста
+      var pic = new Image();  // "Создаём" изображение
+      console.log(pic);
+      pic.src = 'http://habrahabr.ru/i/nocopypast.png';  // Источник изображения, позаимствовано на хабре
+
+      pic.onload = function() {  // Событие onLoad, ждём момента пока загрузится изображение
+        ctx.drawImage(pic, 0, 0);  // Рисуем изображение от точки с координатами 0, 0
+      }
+    </script>
+    
+  </body>
+</html>

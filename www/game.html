@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TD game "Google Server Defense"</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js2/stats.js"></script>
+    <script src="js2/rect.js"></script>
+    <script src="js2/game.js"></script>
+    <link rel="stylesheet" href="css2/index.css">
+  </head>
+  <body>
+    <!--h1>TD game 'GS Defense'</h1-->
+    <!-- Field -->
+    <canvas id="viewport" height="768" width="100"></canvas>
+    <!-- Script -->
+    <script type="text/javascript" charset="utf-8">
+      // var example = document.getElementById("viewport");
+      // var ctx = example.getContext('2d');  // Контекст холста
+      // var pic = new Image();  // "Создаём" изображение
+      // console.log(pic);
+      // pic.src = 'http://habrahabr.ru/i/nocopypast.png';  // Источник изображения, позаимствовано на хабре
+
+      // pic.onload = function() {  // Событие onLoad, ждём момента пока загрузится изображение
+      //   ctx.drawImage(pic, 0, 0);  // Рисуем изображение от точки с координатами 0, 0
+      // }
+
+      var renderStats = new Stats();
+      document.body.appendChild(renderStats.domElement);
+
+      var updateStats = new Stats();
+      document.body.appendChild(updateStats.domElement);
+
+      Game.initialize();
+      $('#viewport').width(window.innerWidth-100);
+
+      // Add some moving rectangles
+      var i = 100;
+      while (i--) Game.addImage();
+      
+      Game.run = (function() {
+        var loops = 0, skipTicks = 1000 / Game.fps,
+            maxFrameSkip = 10,
+            nextGameTick = (new Date).getTime(),
+            lastGameTick;
+
+        return function() {
+          loops = 0;
+
+          while ((new Date).getTime() > nextGameTick) {
+            updateStats.update();
+            Game.update();
+            nextGameTick += skipTicks;
+            loops++;
+          }
+
+          if (!loops) {
+            //renderStats.update();
+            Game.draw((nextGameTick - (new Date).getTime()) / skipTicks);
+          } else {
+            renderStats.update();
+            Game.draw(0);
+          }
+        };
+      })();
+      
+      (function() {
+        var onEachFrame;
+        if (window.webkitRequestAnimationFrame) {
+          onEachFrame = function(cb) {
+            var _cb = function() { cb(); webkitRequestAnimationFrame(_cb); }
+            _cb();
+          };
+        } else if (window.mozRequestAnimationFrame) {
+          onEachFrame = function(cb) {
+            var _cb = function() { cb(); mozRequestAnimationFrame(_cb); }
+            _cb();
+          };
+        } else {
+          onEachFrame = function(cb) {
+            setInterval(cb, 1000 / 60);
+          }
+        }
+        
+        window.onEachFrame = onEachFrame;
+      })();
+
+      window.onEachFrame(Game.run);
+    </script>
+    
+  </body>
+</html>
