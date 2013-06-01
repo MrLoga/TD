@@ -18,7 +18,7 @@ var i = 0;
 function animate() {
   i++;
   Animate.log.value = i;
-  Foe.draw();
+  Foe.animate();
   requestAnimationFrame(animate);
 }
 animate();
