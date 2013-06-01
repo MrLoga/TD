@@ -1,0 +1,24 @@
+html, body, canvas {
+  margin: 0;
+  padding: 0;
+}
+
+#field, #foe {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#console {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100px;
+  height: 150px;
+  display: none;
+  z-index: 10;
+}
+#Alog {
+  position: absolute;
+  right: 100px;
+}
