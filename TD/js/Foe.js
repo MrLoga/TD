@@ -3,9 +3,10 @@ Foe.canvas = document.getElementById("Foe");
 Foe.ctx = Foe.canvas.getContext("2d");
 Foe.stock = [];
 Foe.vars = {};
-Foe.vars.Timeout = 50;
+Foe.vars.Timeout = 100;
 Foe.vars.TimeoutI = 0;
 Foe.vars.wave = 0;
+Foe.vars.sum = 0;
 
 
 Foe.ctx.canvas.width = Common.cell.size * Common.cell.x;
@@ -24,7 +25,10 @@ Foe.animate = function (){
 
 Foe.add = function(){
   var foe = new FoeObj();
+  Foe.vars.sum++;
+  foe.id = Foe.vars.sum;
   this.stock.push(foe);
+  this.vars.sum++;
 }
 
 function FoeObj(name, img) {
@@ -32,9 +36,9 @@ function FoeObj(name, img) {
   var pic = new Image();
   pic.src = 'img/1.png';
   this.img = pic;
-  this.speed = 0.6;
-  this.x = 51;
-  this.y = 1;
+  this.speed = 1;
+  this.x = Level.scene1.start[0];
+  this.y = Level.scene1.start[1];
   this.Xshift = 0;
   this.Yshift = 1;
 }
@@ -43,37 +47,44 @@ FoeObj.prototype.draw = function(ctx) {
   ctx.drawImage(this.img, this.x, this.y);
 };
 
-FoeObj.prototype.update = function() {
-  this.x += this.Xshift * this.speed;
-  this.y += this.Yshift * this.speed;
-  var FoeXCell = Math.ceil((this.x + 24) / Common.cell.size) - 1;
-  var FoeYCell = Math.ceil((this.y + 24) / Common.cell.size) - 1;
-  var map = Level.scene1.map;
-
-  if (map[FoeYCell + 1][FoeXCell]){
-    console.log(true);
-    this.Xshift = 0;
-    this.Yshift = 1;
-  }else if(map[FoeYCell][FoeXCell + 1]){
-    console.log(true);
-    this.Xshift = 1;
-    this.Yshift = 0;
-  }else if(map[FoeYCell][FoeXCell - 1]){
-    console.log(true);
-    this.Xshift = -1;
-    this.Yshift = 0;
-  }else{
-    console.log(true);
-    this.Xshift = 0;
-    this.Yshift = -1;
+FoeObj.prototype.update = function(num) {
+  this.x += (this.Xshift * this.speed);
+  this.y += (this.Yshift * this.speed);
+  var FoeXCell = Math.ceil((this.x + 49) / Common.cell.size);
+  var FoeYCell = Math.ceil((this.y + 49) / Common.cell.size) - 1;
+  var map = Level.scene1.map[FoeYCell][FoeXCell];
+  switch(map){
+    case 1:
+      this.Xshift = 0;
+      this.Yshift = -1;   
+      break;
+    case 2:
+      this.Xshift = 1;
+      this.Yshift = 0;   
+      break;
+    case 3:
+      this.Xshift = 0;
+      this.Yshift = 1;
+      break;
+    case 4:
+      this.Xshift = -1;
+      this.Yshift = 0;   
+      break;
+    case 9:
+      var index = Foe.stock.indexOf(this);
+      //Foe.stock.splice(index, 1);
+      delete Foe.stock[index];
+      break;
   }
 };
 
 Foe.draw = function(){
   this.ctx.clearRect(0, 0, Common.cell.x * Common.cell.size, Common.cell.y * Common.cell.size);
   for (var i = 0; i < this.stock.length; i++) {
-    this.stock[i].update();
-    this.stock[i].draw(this.ctx);
+    if(typeof this.stock[i] == 'object'){
+      this.stock[i].draw(this.ctx);
+      this.stock[i].update(i);  
+    }
   }
 };
 

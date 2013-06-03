@@ -5,5 +5,5 @@ Common.clientHeight = document.documentElement.clientHeight;
 
 Common.cell = {};
 Common.cell.size = 50;
-Common.cell.x = 16;
-Common.cell.y = 9;
+Common.cell.x = 14;
+Common.cell.y = 10;

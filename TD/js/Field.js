@@ -5,12 +5,6 @@ Field.ctx = Field.canvas.getContext("2d");
 Field.gridColor = '#aaaaaa';
 
 
-
-
-
-
-// Действия
-
 // Field.ctx.canvas.width = Common.clientWidth;   //на всю ширину эрана
 // Field.ctx.canvas.height = Common.clientHeight;
 Field.ctx.canvas.width = Common.cell.size * Common.cell.x + 1;

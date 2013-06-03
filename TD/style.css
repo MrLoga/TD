@@ -9,6 +9,10 @@ html, body, canvas {
   top: 0;
 }
 
+#field {
+  background: url(img/scene1.png) no-repeat 0 0;
+}
+
 #console {
   position: absolute;
   right: 0;
